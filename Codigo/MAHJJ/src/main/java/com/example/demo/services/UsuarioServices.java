@@ -16,7 +16,8 @@ public class UsuarioServices {
 
 
     public void  crearYactualizarUsuario(Usuario   usuario){
-    usuarioRepository.save(usuario);
+
+        usuarioRepository.save(usuario);
     }
 
 
