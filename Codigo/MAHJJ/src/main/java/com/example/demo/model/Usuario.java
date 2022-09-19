@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Data
 public class Usuario {
 
 
@@ -34,29 +35,31 @@ public class Usuario {
  @Enumerated(EnumType.STRING)
  @Column(name = "ROLES")
     private Enum_NombreRol roles;
- @OneToOne (mappedBy = "usuario")
+
+   @ManyToOne
+   @JoinColumn(name = "usuario")
    private Perfil perfil;
 
-    @ManyToOne
-    @JoinColumn(name = "enterprise_id")
-    private Enterprise enterprise;
+    //@ManyToOne(targetEntity=Enterprise.class)
+   //@JoinColumn(name = "usuarios")
+    //private Enterprise enterprise;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Transaction> transactions = new ArrayList<>();
-   // @ManyToOne
-    //private Enterprise enterprise;
+    @ManyToOne
+    private Enterprise enterprise;
     private Date updateAT;
     private Date createdAt;
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Usuario{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", perfil=" + perfil +
                 ", roles=" + roles +
-                ", enterprise=" + enterprise +
+               ", enterprise=" + enterprise +
                 ", transactions=" + transactions +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updateAT +

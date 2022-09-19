@@ -32,6 +32,8 @@ public class Transaction {
     private Enterprise enterprise;
 
 
+
+
     @Column(name = "createdAt")
     private Date createdAt;
 

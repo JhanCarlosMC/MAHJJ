@@ -20,8 +20,8 @@ public class Enterprise {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany
-    private Usuario usuario;
+    @OneToMany(mappedBy = "enterprise")
+    private  List <Usuario>usuarios;
     @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
 
@@ -41,7 +41,7 @@ public class Enterprise {
     @Column(name = "updatedAt")
     private Date updatedAt;
 
-    private List<Usuario> usuarios = new ArrayList<>();
+
 
 
 

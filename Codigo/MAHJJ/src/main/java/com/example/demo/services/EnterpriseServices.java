@@ -5,10 +5,11 @@ import com.example.demo.model.Usuario;
 import com.example.demo.repository.EnterpriseRepository;
 import com.example.demo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class EnterpriseServices {
 
     @Autowired
