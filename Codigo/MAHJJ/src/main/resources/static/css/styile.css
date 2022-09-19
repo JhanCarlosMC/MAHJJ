@@ -26,7 +26,23 @@ background-repeat: no-repeat;
 }
 
 .contenedor-login{
-    
-    background-color: red;
+    display: flex;
+    background-color: whitesmoke;
+    width: 100px;
    
+}
+
+.formulario-contenedor{
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-contenedor button{
+    background-color: #e83565;
+    color: white;
+    border: none;
+    height: 35px;
+    margin: 15px;
+    font-weight: bold;
+    border-radius: 5px;
 }
