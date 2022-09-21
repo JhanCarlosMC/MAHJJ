@@ -29,6 +29,29 @@ public class EnterpriseServices {
         return  enterprises;
     }
 
+    public Enterprise verEnterpriseEspecifica(int id){
+
+        Enterprise enterprise = new Enterprise();
+        enterprise = enterpriseRepository.findById(id);
+        return enterprise;
+    }
+
+    public Enterprise crearEnterprise(Enterprise enterprise){
+
+        Enterprise enterpriseNew = null;
+        enterprise = enterpriseRepository.save(enterprise);
+
+        return enterprise;
+    }
+
+    public Enterprise editarEnterprise(Enterprise enterprise){
+
+        Enterprise enterpriseNew = null;
+        enterprise = enterpriseRepository.saveAndFlush(enterprise);
+
+        return enterprise;
+    }
+
     public void  eliminarEnterprise(Long id){
 
         enterpriseRepository.deleteById(id);

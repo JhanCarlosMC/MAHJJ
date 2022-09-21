@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.Mensaje;
 import com.example.demo.model.Enterprise;
+import com.example.demo.model.Transaction;
 import com.example.demo.model.Usuario;
 import com.example.demo.services.EnterpriseServices;
 import com.example.demo.services.UsuarioServices;
@@ -20,6 +22,12 @@ public class EnterpriseController {
         return  enterpriseServices.verEnterprise();
 
     }
+
+    @GetMapping("/enterprise/{id}")
+    private Enterprise verEnterprise(@PathVariable("id") int id){
+        return  enterpriseServices.verEnterprise().get(id);
+
+    }
 /*
     @PostMapping("/enteprise")
     private  void crearEnterprise(@RequestBody Enterprise enterprise){
@@ -34,5 +42,42 @@ public class EnterpriseController {
     @PutMapping("/enterprise")
     private void editarEnterprise(@RequestBody Enterprise enterprise){
         enterpriseServices.crearYactualizarEnterprise(enterprise);
+    }
+
+    @GetMapping("/enterprises/{id}/movements")
+    public List<Transaction> ListarTransacciones(){
+        return  enterpriseServices.listarTransacciones();
+    }
+
+    @PostMapping("/enterprises/{id}/movements")
+    public ResponseEntity<Mensaje> crearTransaccion(@RequestBody Transaction transaccion){
+        try {
+            enterpriseServices.guardarTransaccion(transaccion);
+            return  ResponseEntity.status(201).body(new Mensaje("La transaccion se registro correctamente"));
+
+        } catch (Exception e) {
+            return  ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
+    }
+
+    @PutMapping("/enterprises/{id}/movements")
+    public ResponseEntity<Mensaje> actualizarTransaccion(@RequestBody Transaction transaccion) {
+        try {
+            enterpriseServices.actualizarTransaccion(transaccion);
+            return  ResponseEntity.status(200).body(new Mensaje("La transaccion se registro correctamente"));
+        } catch (Exception e) {
+            return  ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("enterprises/{id}/movements/{id}")
+    public ResponseEntity<Mensaje> eliminarTransaccion(@PathVariable("id")Integer id){
+        try {
+            enterpriseServices.eliminarProducto(id);
+            return  ResponseEntity.status(200).body(new Mensaje("La transaccion se elimino correctamente"));
+
+        } catch (Exception e) {
+            return  ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
     }
 }
