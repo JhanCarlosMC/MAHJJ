@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 public class EnterpriseController {
@@ -46,13 +47,14 @@ public class EnterpriseController {
 
     @GetMapping("/enterprises/{id}/movements")
     public List<Transaction> ListarTransacciones(){
-        return  enterpriseServices.listarTransacciones();
+        //return  enterpriseServices.listarTransacciones();
+        return null;
     }
 
     @PostMapping("/enterprises/{id}/movements")
     public ResponseEntity<Mensaje> crearTransaccion(@RequestBody Transaction transaccion){
         try {
-            enterpriseServices.guardarTransaccion(transaccion);
+            //enterpriseServices.guardarTransaccion(transaccion);
             return  ResponseEntity.status(201).body(new Mensaje("La transaccion se registro correctamente"));
 
         } catch (Exception e) {
@@ -63,17 +65,17 @@ public class EnterpriseController {
     @PutMapping("/enterprises/{id}/movements")
     public ResponseEntity<Mensaje> actualizarTransaccion(@RequestBody Transaction transaccion) {
         try {
-            enterpriseServices.actualizarTransaccion(transaccion);
+            //enterpriseServices.actualizarTransaccion(transaccion);
             return  ResponseEntity.status(200).body(new Mensaje("La transaccion se registro correctamente"));
         } catch (Exception e) {
             return  ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
         }
     }
 
-    @DeleteMapping("enterprises/{id}/movements/{id}")
+    @DeleteMapping("enterprises/{idE}/movements/{id}")
     public ResponseEntity<Mensaje> eliminarTransaccion(@PathVariable("id")Integer id){
         try {
-            enterpriseServices.eliminarProducto(id);
+            //enterpriseServices.eliminarProducto(id);
             return  ResponseEntity.status(200).body(new Mensaje("La transaccion se elimino correctamente"));
 
         } catch (Exception e) {

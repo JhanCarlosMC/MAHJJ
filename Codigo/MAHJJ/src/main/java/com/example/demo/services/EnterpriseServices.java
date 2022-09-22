@@ -32,7 +32,7 @@ public class EnterpriseServices {
     public Enterprise verEnterpriseEspecifica(int id){
 
         Enterprise enterprise = new Enterprise();
-        enterprise = enterpriseRepository.findById(id);
+        //enterprise = enterpriseRepository.findById(id);
         return enterprise;
     }
 

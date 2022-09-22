@@ -13,28 +13,7 @@ public class UsuarioServices {
 
     @Autowired
     UsuarioRepository usuarioRepository;
-
-
-    public void  crearYactualizarUsuario(Usuario   usuario){
-
-        usuarioRepository.save(usuario);
-    }
-
-
-    public List<Usuario> verUsuario(){
-
-        List<Usuario> usuarios = new ArrayList<Usuario>();
-        usuarios.addAll(usuarioRepository.findAll());
-        return  usuarios;
-    }
-
-    public void  eliminarUsuario(Long id){
-
-        usuarioRepository.deleteById(id);
-
-    }
-
-
+    
     // Metodos Marieth Perpiñan 
     
     /**
