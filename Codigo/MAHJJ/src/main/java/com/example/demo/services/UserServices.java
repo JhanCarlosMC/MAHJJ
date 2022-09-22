@@ -1,18 +1,18 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.demo.repository.UserRepository;
 
 @Service
-public class UsuarioServices {
+public class UserServices {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UserRepository userRepository;
     
     // Metodos Marieth Perpiñan 
     
@@ -22,11 +22,11 @@ public class UsuarioServices {
     * 
     * @return List<Usuario>
     */
-    public List<Usuario> getAllUsers(){
-        List<Usuario> users = null;
+    public List<User> getAllUsers(){
+        List<User> users = null;
         try {
             users = new ArrayList<>();
-            users.addAll(usuarioRepository.findAll());
+            users.addAll(userRepository.findAll());
         } catch (Exception e) {
             System.err.println("ERROR");
         }
@@ -39,10 +39,10 @@ public class UsuarioServices {
     * @param id 
     * @return Usuario
     */
-    public Usuario getUser(Long id){
-        Usuario user = null;
+    public User getUser(Long id){
+        User user = null;
         try {
-            user = usuarioRepository.getReferenceById(id);
+            user = userRepository.getReferenceById(id);
         } catch (Exception e) {
             System.err.println("ERROR");
         }
@@ -55,10 +55,10 @@ public class UsuarioServices {
     * @param usuario 
     * @return Usuario
     */
-    public Usuario createUser(Usuario usuario){
-        Usuario user = null;
+    public User createUser(User usuario){
+        User user = null;
         try {
-            user = usuarioRepository.save(usuario);
+            user = userRepository.save(usuario);
         } catch (Exception e) {
         }
         return user;
@@ -70,10 +70,10 @@ public class UsuarioServices {
     * @param usuario 
     * @return Usuario
     */
-    public Usuario editUser(Usuario usuario){
-        Usuario user = null;
+    public User editUser(User usuario){
+        User user = null;
         try {
-            user = usuarioRepository.saveAndFlush(usuario);
+            user = userRepository.saveAndFlush(usuario);
         } catch (Exception e) {
         }
         return user;
@@ -88,7 +88,7 @@ public class UsuarioServices {
     public boolean deleteUser(Long id){
         Boolean delete = false;
         try {
-            usuarioRepository.deleteById(id);
+            userRepository.deleteById(id);
             delete = true;
         } catch (Exception e) {
         }

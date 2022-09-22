@@ -19,52 +19,52 @@ import java.util.List;
 @Setter
 @ToString
 @Data
-public class Usuario {
-
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private  Long id;
+    private Long id;
 
+    @Column(name = "email", unique = true)
+    private String email;
 
-    @Column( name = "email",unique = true)
-    private String  email;
-
-    private String  nombre;
- @Enumerated(EnumType.STRING)
- @Column(name = "ROLES")
+    private String nombre;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ROLES")
     private Enum_NombreRol roles;
 
-   @ManyToOne
-   @JoinColumn(name = "usuario")
-   private Perfil perfil;
+    @ManyToOne
+    @JoinColumn(name = "usuario")
+    private Perfil perfil;
 
     //@ManyToOne(targetEntity=Enterprise.class)
-   //@JoinColumn(name = "usuarios")
+    //@JoinColumn(name = "usuarios")
     //private Enterprise enterprise;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Transaction> transactions = new ArrayList<>();
+    
     @ManyToOne
     private Enterprise enterprise;
+    
     private Date updateAT;
+    
     private Date createdAt;
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", perfil=" + perfil +
-                ", roles=" + roles +
-               ", enterprise=" + enterprise +
-                ", transactions=" + transactions +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updateAT +
-                '}';
+        return "Usuario{"
+                + "id=" + id
+                + ", email='" + email + '\''
+                + ", perfil=" + perfil
+                + ", roles=" + roles
+                + ", enterprise=" + enterprise
+                + ", transactions=" + transactions
+                + ", createdAt=" + createdAt
+                + ", updatedAt=" + updateAT
+                + '}';
     }
-
 
 }

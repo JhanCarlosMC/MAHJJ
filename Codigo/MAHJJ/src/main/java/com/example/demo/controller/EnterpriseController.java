@@ -3,9 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.dto.Mensaje;
 import com.example.demo.model.Enterprise;
 import com.example.demo.model.Transaction;
-import com.example.demo.model.Usuario;
+import com.example.demo.model.User;
 import com.example.demo.services.EnterpriseServices;
-import com.example.demo.services.UsuarioServices;
+import com.example.demo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

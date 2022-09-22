@@ -21,7 +21,7 @@ public class Enterprise {
     private Long id;
 
     @OneToMany(mappedBy = "enterprise")
-    private  List <Usuario>usuarios;
+    private  List <User>usuarios;
     @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
 

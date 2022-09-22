@@ -1,17 +1,17 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Usuario;
-import com.example.demo.services.UsuarioServices;
+import com.example.demo.model.User;
+import com.example.demo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class UsuarioController {
+public class UserController {
 
     @Autowired
-    UsuarioServices usuarioServices;
+    UserServices usuarioServices;
 
     // Metodos Marieth Perpiñan 
     
@@ -21,8 +21,8 @@ public class UsuarioController {
      *
      * @return List<Usuario>
      */
-    @GetMapping("/usuarios")
-    private List<Usuario> getAllUsers() {
+    @GetMapping("/users")
+    private List<User> getAllUsers() {
         return usuarioServices.getAllUsers();
     }
 
@@ -32,8 +32,8 @@ public class UsuarioController {
      * @param id
      * @return Usuario
      */
-    @GetMapping("/usuario/{id}")
-    private Usuario getUser(@PathVariable("id") long id) {
+    @GetMapping("/user/{id}")
+    private User getUser(@PathVariable("id") long id) {
         return usuarioServices.getUser(id);
     }
 
@@ -43,8 +43,8 @@ public class UsuarioController {
      * @param usuario
      * @return Usuario
      */
-    @PostMapping("/usuario")
-    private void createUser(@RequestBody Usuario usuario) {
+    @PostMapping("/user")
+    private void createUser(@RequestBody User usuario) {
         usuarioServices.createUser(usuario);
     }
 
@@ -54,8 +54,8 @@ public class UsuarioController {
      * @param usuario
      * @return Usuario
      */
-    @PutMapping("/usuario")
-    private void editUser(@RequestBody Usuario usuario) {
+    @PutMapping("/user")
+    private void editUser(@RequestBody User usuario) {
         usuarioServices.editUser(usuario);
     }
 
@@ -65,7 +65,7 @@ public class UsuarioController {
      * @param id
      * @return Usuario
      */
-    @DeleteMapping("/usuario/{id}")
+    @DeleteMapping("/user/{id}")
     private void deleteUser(@PathVariable("id") long id) {
         usuarioServices.deleteUser(id);
     }

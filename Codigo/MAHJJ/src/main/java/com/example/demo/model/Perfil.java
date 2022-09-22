@@ -22,7 +22,7 @@ public class Perfil {
     private String telefono;
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    private User usuario;
 
     private Date updateAT;
     private Date createdAt;

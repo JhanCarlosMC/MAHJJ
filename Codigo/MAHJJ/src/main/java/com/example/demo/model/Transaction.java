@@ -25,7 +25,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    private User usuario;
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
