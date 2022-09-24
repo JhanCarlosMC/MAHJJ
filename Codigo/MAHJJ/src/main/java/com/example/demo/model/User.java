@@ -1,25 +1,24 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.Enum_NombreRol;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.example.demo.enums.Enum_RoleName;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
+import java.util.ArrayList;
 import lombok.*;
-import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Data
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,39 +31,25 @@ public class User {
     private String nombre;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLES")
-    private Enum_NombreRol roles;
+    @Column(name = "rol")
+    private Enum_RoleName rol;
 
     @ManyToOne
-    @JoinColumn(name = "usuario")
-    private Perfil perfil;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
-    //@ManyToOne(targetEntity=Enterprise.class)
-    //@JoinColumn(name = "usuarios")
-    //private Enterprise enterprise;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity=Enterprise.class)
+    @JoinColumn(name = "enterprise_id")
+    private Enterprise enterprise;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Transaction> transactions = new ArrayList<>();
     
-    @ManyToOne
-    private Enterprise enterprise;
-    
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updateAT;
     
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
-
-    @Override
-    public String toString() {
-        return "Usuario{"
-                + "id=" + id
-                + ", email='" + email + '\''
-                + ", perfil=" + perfil
-                + ", roles=" + roles
-                + ", enterprise=" + enterprise
-                + ", transactions=" + transactions
-                + ", createdAt=" + createdAt
-                + ", updatedAt=" + updateAT
-                + '}';
-    }
 
 }

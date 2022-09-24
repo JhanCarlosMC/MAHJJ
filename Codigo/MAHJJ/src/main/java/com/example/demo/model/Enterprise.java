@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "usuario")
+@Entity
+@Table(name = "enterprise")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity
+@Data
 public class Enterprise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,28 +24,28 @@ public class Enterprise {
 
     @OneToMany(mappedBy = "enterprise")
     private  List <User>usuarios;
-    @Column(name = "nombre", nullable = false, unique = true, length = 50)
-    private String nombre;
+    
+    @Column(name = "name", unique = true)
+    private String name;
 
-    @Column(name = "documento", nullable = false, unique = true, length = 50)
-    private String documento;
+    @Column(name = "document", unique = true)
+    private String document;
 
-    @Column(name = "telefono", length = 15)
-    private String  telefono;
+    private String  phone;
 
-    @Column(name = "direccion", nullable = false, length = 50)
-    private String direccion;
+    private String address;
 
-
-    @Column(name = "createdAt")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<User> users = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Transaction> transactions = new ArrayList<>();
+        
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
 
-    @Column(name = "updatedAt")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updatedAt;
-
-
-
-
-
-
 }

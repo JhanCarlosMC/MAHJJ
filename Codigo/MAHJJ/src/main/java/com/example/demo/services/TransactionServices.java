@@ -1,27 +1,27 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Enterprise;
+import com.example.demo.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.repository.EnterpriseRepository;
+import com.example.demo.repository.TransactionRepository;
 
 @Service
-public class EnterpriseServices {
+public class TransactionServices {
 
     @Autowired
-    EnterpriseRepository repository;
+    TransactionRepository repository;
         
     /**
-    *  El sistema permite consultar todos los empresas
+    *  El sistema permite consultar todos los movimientos
     *
     * 
-    * @return List<Usuario>
+    * @return List<Transaction>
     */
-    public List<Enterprise> getAllEnterprises(){
-        List<Enterprise> dataList = null;
+    public List<Transaction> getAllTransactions(){
+        List<Transaction> dataList = null;
         try {
             dataList = new ArrayList<>();
             dataList.addAll(repository.findAll());
@@ -32,13 +32,13 @@ public class EnterpriseServices {
     }
     
     /**
-    * El sistema permite consultar un solo empresa
+    * El sistema permite consultar un solo movimiento
     *
     * @param id 
     * @return Usuario
     */
-    public Enterprise getEnterprise(Long id){
-        Enterprise data = null;
+    public Transaction getTransaction(Long id){
+        Transaction data = null;
         try {
             data = repository.getReferenceById(id);
         } catch (Exception e) {
@@ -48,42 +48,42 @@ public class EnterpriseServices {
     }
 
     /**
-    * El sistema permite crear un empresa
+    * El sistema permite crear un movimiento
     *
-    * @param empresa 
+    * @param movimiento 
     * @return Usuario
     */
-    public Enterprise createEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public Transaction createTransaction(Transaction movimiento){
+        Transaction data = null;
         try {
-            data = repository.save(empresa);
+            data = repository.save(movimiento);
         } catch (Exception e) {
         }
         return data;
     }
     
     /**
-    * El sistema permite editar un empresa
+    * El sistema permite editar un movimiento
     *
-    * @param empresa 
+    * @param movimiento 
     * @return Usuario
     */
-    public Enterprise editEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public Transaction editTransaction(Transaction movimiento){
+        Transaction data = null;
         try {
-            data = repository.saveAndFlush(empresa);
+            data = repository.saveAndFlush(movimiento);
         } catch (Exception e) {
         }
         return data;
     }
 
     /**
-    * El sistema permite eliminar un empresa
+    * El sistema permite eliminar un movimiento
     *
     * @param id 
     * @return Usuario
     */
-    public boolean deleteEnterprise(Long id){
+    public boolean deleteTransaction(Long id){
         Boolean delete = false;
         try {
             repository.deleteById(id);

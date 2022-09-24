@@ -1,56 +1,42 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
+@Table(name = "transaction")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Transaction {
+@Data
+public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "concepto", nullable = false)
-    private String concepto;
+    private String concept;
 
-    @Column(name = "monto", nullable = false)
-    private float monto;
-
+    private float amount;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private User usuario;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
 
-
-
-
-    @Column(name = "createdAt")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
 
-    @Column(name = "updatedAt")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updatedAt;
 
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", concepto='" + concepto + '\'' +
-                ", monto=" + monto +
-                ", usuario=" + usuario +
-                ", enterprise=" + enterprise +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
+    
 }

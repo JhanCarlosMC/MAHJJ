@@ -1,17 +1,17 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Enterprise;
-import com.example.demo.services.EnterpriseServices;
+import com.example.demo.model.Profile;
+import com.example.demo.services.ProfileServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class EnterpriseController {
+public class ProfileController {
 
     @Autowired
-    EnterpriseServices service;
+    ProfileServices service;
     
     /**
      * Endpoint que permite que: El sistema permite consultar todos los usuarios
@@ -19,9 +19,9 @@ public class EnterpriseController {
      *
      * @return List<Usuario>
      */
-    @GetMapping("/enterprises")
-    private List<Enterprise> getAllEnterprises() {
-        return service.getAllEnterprises();
+    @GetMapping("/profiles")
+    private List<Profile> getAllProfiles() {
+        return service.getAllProfiles();
     }
 
     /**
@@ -30,9 +30,9 @@ public class EnterpriseController {
      * @param id
      * @return Usuario
      */
-    @GetMapping("/enterprise/{id}")
-    private Enterprise getEnterprise(@PathVariable("id") long id) {
-        return service.getEnterprise(id);
+    @GetMapping("/profile/{id}")
+    private Profile getProfile(@PathVariable("id") long id) {
+        return service.getProfile(id);
     }
 
     /**
@@ -41,9 +41,9 @@ public class EnterpriseController {
      * @param usuario
      * @return Usuario
      */
-    @PostMapping("/enterprise")
-    private void createEnterprise(@RequestBody Enterprise usuario) {
-        service.createEnterprise(usuario);
+    @PostMapping("/profile")
+    private void createProfile(@RequestBody Profile usuario) {
+        service.createProfile(usuario);
     }
 
     /**
@@ -52,9 +52,9 @@ public class EnterpriseController {
      * @param usuario
      * @return Usuario
      */
-    @PutMapping("/enterprise")
-    private void editEnterprise(@RequestBody Enterprise usuario) {
-        service.editEnterprise(usuario);
+    @PutMapping("/profile")
+    private void editProfile(@RequestBody Profile usuario) {
+        service.editProfile(usuario);
     }
 
     /**
@@ -63,9 +63,9 @@ public class EnterpriseController {
      * @param id
      * @return Usuario
      */
-    @DeleteMapping("/enterprise/{id}")
-    private void deleteEnterprise(@PathVariable("id") long id) {
-        service.deleteEnterprise(id);
+    @DeleteMapping("/profile/{id}")
+    private void deleteProfile(@PathVariable("id") long id) {
+        service.deleteProfile(id);
     }
 
 }

@@ -11,9 +11,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserServices usuarioServices;
-
-    // Metodos Marieth Perpiñan 
+    UserServices service;
     
     /**
      * Endpoint que permite que: El sistema permite consultar todos los usuarios
@@ -23,7 +21,7 @@ public class UserController {
      */
     @GetMapping("/users")
     private List<User> getAllUsers() {
-        return usuarioServices.getAllUsers();
+        return service.getAllUsers();
     }
 
     /**
@@ -34,7 +32,7 @@ public class UserController {
      */
     @GetMapping("/user/{id}")
     private User getUser(@PathVariable("id") long id) {
-        return usuarioServices.getUser(id);
+        return service.getUser(id);
     }
 
     /**
@@ -45,7 +43,7 @@ public class UserController {
      */
     @PostMapping("/user")
     private void createUser(@RequestBody User usuario) {
-        usuarioServices.createUser(usuario);
+        service.createUser(usuario);
     }
 
     /**
@@ -56,7 +54,7 @@ public class UserController {
      */
     @PutMapping("/user")
     private void editUser(@RequestBody User usuario) {
-        usuarioServices.editUser(usuario);
+        service.editUser(usuario);
     }
 
     /**
@@ -67,7 +65,7 @@ public class UserController {
      */
     @DeleteMapping("/user/{id}")
     private void deleteUser(@PathVariable("id") long id) {
-        usuarioServices.deleteUser(id);
+        service.deleteUser(id);
     }
 
 }

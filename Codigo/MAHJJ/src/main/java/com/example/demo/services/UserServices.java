@@ -12,25 +12,23 @@ import com.example.demo.repository.UserRepository;
 public class UserServices {
 
     @Autowired
-    UserRepository userRepository;
-    
-    // Metodos Marieth Perpiñan 
-    
+    UserRepository repository;
+        
     /**
     *  El sistema permite consultar todos los usuarios
     *
     * 
-    * @return List<Usuario>
+    * @return List<User>
     */
     public List<User> getAllUsers(){
-        List<User> users = null;
+        List<User> dataList = null;
         try {
-            users = new ArrayList<>();
-            users.addAll(userRepository.findAll());
+            dataList = new ArrayList<>();
+            dataList.addAll(repository.findAll());
         } catch (Exception e) {
             System.err.println("ERROR");
         }
-        return  users;
+        return  dataList;
     }
     
     /**
@@ -40,13 +38,13 @@ public class UserServices {
     * @return Usuario
     */
     public User getUser(Long id){
-        User user = null;
+        User data = null;
         try {
-            user = userRepository.getReferenceById(id);
+            data = repository.getReferenceById(id);
         } catch (Exception e) {
             System.err.println("ERROR");
         }
-        return user;
+        return data;
     }
 
     /**
@@ -56,12 +54,12 @@ public class UserServices {
     * @return Usuario
     */
     public User createUser(User usuario){
-        User user = null;
+        User data = null;
         try {
-            user = userRepository.save(usuario);
+            data = repository.save(usuario);
         } catch (Exception e) {
         }
-        return user;
+        return data;
     }
     
     /**
@@ -71,12 +69,12 @@ public class UserServices {
     * @return Usuario
     */
     public User editUser(User usuario){
-        User user = null;
+        User data = null;
         try {
-            user = userRepository.saveAndFlush(usuario);
+            data = repository.saveAndFlush(usuario);
         } catch (Exception e) {
         }
-        return user;
+        return data;
     }
 
     /**
@@ -88,7 +86,7 @@ public class UserServices {
     public boolean deleteUser(Long id){
         Boolean delete = false;
         try {
-            userRepository.deleteById(id);
+            repository.deleteById(id);
             delete = true;
         } catch (Exception e) {
         }
