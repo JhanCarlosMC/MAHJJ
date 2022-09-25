@@ -2,7 +2,7 @@ package com.example.demo.enums;
 
 import javax.persistence.Table;
 
-@Table(name ="nombrerol")
-public enum Enum_NombreRol {
+@Table(name ="enum_role_name")
+public enum Enum_RoleName {
     Admin,Operario
 }

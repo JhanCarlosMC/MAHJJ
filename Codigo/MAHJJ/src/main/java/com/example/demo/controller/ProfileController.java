@@ -1,17 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MessageResponseDto;
-import com.example.demo.dto.EnterpriseDto;
-import com.example.demo.mappers.EnterpriseMapper;
-import com.example.demo.model.Enterprise;
-import com.example.demo.repository.EnterpriseRepository;
+import com.example.demo.dto.ProfileDto;
+import com.example.demo.mappers.ProfileMapper;
+import com.example.demo.model.Profile;
+import com.example.demo.repository.ProfileRepository;
 import com.example.demo.utils.HttpEndpointUtil;
 import com.example.demo.utils.Parameters;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,26 +21,26 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(HttpEndpointUtil.WEB_SERVER_BASE_API_URL)
-public class EnterpriseController {
+public class ProfileController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-    private EnterpriseRepository repository;
+    private ProfileRepository repository;
     
     @Autowired
-    private final EnterpriseMapper mapper;
+    private final ProfileMapper mapper;
 
-    public EnterpriseController() {
-        mapper = Mappers.getMapper(EnterpriseMapper.class);
+    public ProfileController() {
+        mapper = Mappers.getMapper(ProfileMapper.class);
     }
 
-    @GetMapping("/enterprises")
-    public List<EnterpriseDto> getEnterpriseAll(@RequestParam Map<String, String> dataRequest) {
-        logger.info("info - { GET } /enterprises");
-        List<EnterpriseDto> dataDto = new ArrayList<>();
+    @GetMapping("/profiles")
+    public List<ProfileDto> getProfileAll(@RequestParam Map<String, String> dataRequest) {
+        logger.info("info - { GET } /profiles");
+        List<ProfileDto> dataDto = new ArrayList<>();
         try {         
-            List<Enterprise> dataModel = repository.findAll();
+            List<Profile> dataModel = repository.findAll();
             dataDto = mapper.convertListModelToListDto(dataModel);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,12 +48,12 @@ public class EnterpriseController {
         return dataDto;
     }
 
-    @GetMapping("/enterprises/{id}")
-    public EnterpriseDto getEnterprise( @PathVariable Long id, @RequestParam Map<String, String> dataRequest) {
-        logger.info("info - { GET } /enterprises/" + id);
-        EnterpriseDto dataDto = new EnterpriseDto();
+    @GetMapping("/profiles/{id}")
+    public ProfileDto getProfile( @PathVariable Long id, @RequestParam Map<String, String> dataRequest) {
+        logger.info("info - { GET } /profiles/" + id);
+        ProfileDto dataDto = new ProfileDto();
         try {
-            Optional<Enterprise> dataModel = repository.findById(id);
+            Optional<Profile> dataModel = repository.findById(id);
             dataDto = mapper.convertModelToDto(dataModel.get());   
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,11 +61,11 @@ public class EnterpriseController {
         return dataDto;
     }
 
-    @PostMapping("/enterprises")
-    public EnterpriseDto createEnterprise( @RequestBody EnterpriseDto dataDto, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
-        logger.info("info - { POST } /enterprises");
+    @PostMapping("/profiles")
+    public ProfileDto createProfile( @RequestBody ProfileDto dataDto, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
+        logger.info("info - { POST } /profiles");
         logger.info("info - { POST }", dataDto.toString());
-        Enterprise dataModel = new Enterprise();
+        Profile dataModel = new Profile();
         try {
             if (dataDto.getId() == null) {
                 dataModel = mapper.convertDtoToModel(dataDto);
@@ -78,28 +77,26 @@ public class EnterpriseController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            logger.debug("debug - { POST } /enterprises " + e.getMessage());
+            logger.debug("debug - { POST } /profiles " + e.getMessage());
         }
         return dataDto;
     }
 
-    @PutMapping("/enterprises/{id}")
-    public MessageResponseDto updateEnterprise( @PathVariable Long id, @RequestBody EnterpriseDto dataDto, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
-        logger.info("info - { PUT } /enterprises/" + id);
+    @PutMapping("/profiles/{id}")
+    public MessageResponseDto updateProfile( @PathVariable Long id, @RequestBody ProfileDto dataDto, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
+        logger.info("info - { PUT } /profiles/" + id);
         logger.info("info - { PUT }", dataDto.toString());
         MessageResponseDto messageResponseDto = new MessageResponseDto();
-        Enterprise dataModel = new Enterprise();
+        Profile dataModel = new Profile();
         try {
-            Optional<Enterprise> optionalModel = repository.findById(id);
+            Optional<Profile> optionalModel = repository.findById(id);
             if (optionalModel.isPresent()) {
                 dataModel = optionalModel.get();
-                Enterprise dataModelTemp = mapper.convertDtoToModel(dataDto);
+                Profile dataModelTemp = mapper.convertDtoToModel(dataDto);
                 // Setters
                 dataModel.setId(id);
-                dataModel.setName(dataModelTemp.getName());
-                dataModel.setDocument(dataModelTemp.getDocument());
-                dataModel.setPhone(dataModelTemp.getPhone());    
-                dataModel.setAddress(dataModelTemp.getAddress());                
+                dataModel.setImage(dataModelTemp.getImage());
+                dataModel.setPhone(dataModelTemp.getPhone());
                 repository.saveAndFlush(dataModel);
                 response.setStatus(HttpServletResponse.SC_CREATED);
                 messageResponseDto.setMessage(Parameters.SUCCESS);
@@ -109,18 +106,18 @@ public class EnterpriseController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("info - { PUT } /enterprises/" + id + "  " + e.getMessage());
+            logger.info("info - { PUT } /profiles/" + id + "  " + e.getMessage());
         }
         return messageResponseDto;
     }
 
-    @DeleteMapping("/enterprises/{id}")
-    public MessageResponseDto deleteEnterprise( @PathVariable Long id, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
-        logger.info("info - { DELETE } /enterprises/" + id);
+    @DeleteMapping("/profiles/{id}")
+    public MessageResponseDto deleteProfile( @PathVariable Long id, @RequestParam Map<String, String> dataRequest, HttpServletResponse response) {
+        logger.info("info - { DELETE } /profiles/" + id);
         MessageResponseDto messageResponseDto = new MessageResponseDto();
-        Enterprise dataModel = new Enterprise();
+        Profile dataModel = new Profile();
         try {
-            Optional<Enterprise> optionalModel = repository.findById(id);
+            Optional<Profile> optionalModel = repository.findById(id);
             if (optionalModel.isPresent()) {
                 dataModel = optionalModel.get();    
                 repository.delete(dataModel);
@@ -132,7 +129,7 @@ public class EnterpriseController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("info - { DELETE } /enterprises/" + id + "  " + e.getMessage());
+            logger.info("info - { DELETE } /profiles/" + id + "  " + e.getMessage());
         }
         return messageResponseDto;
     }

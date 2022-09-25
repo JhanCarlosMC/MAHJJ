@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.enums.Enum_RoleName;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,27 +10,36 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "transactions")
-public class Transaction implements Serializable {
-    
+@Table(name = "users")
+public class User implements Serializable {
+
     @Id
-    @SequenceGenerator(name="transactions_pkey",sequenceName="transactions_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="transactions_pkey")
+    @SequenceGenerator(name="users_pkey",sequenceName="users_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="users_pkey")
     @Column(updatable = false, nullable = false, columnDefinition = "serial")
     private Long id;
 
-    private String concept;
+    @Column(name = "email", unique = true)
+    private String email;
 
-    private float amount;
+    private String name;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
+    private Enum_RoleName rol;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", columnDefinition = "integer")
-    private User user;
+    @JoinColumn(name = "profile_id", columnDefinition = "integer")
+    private Profile profile;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enterprise_id", columnDefinition = "integer")
     private Enterprise enterprise;
-
+    
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JsonManagedReference
+    //private List<Transaction> transactions = new ArrayList<>();
+    
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT NOW()")
     private LocalDateTime createdAt;
@@ -37,7 +47,7 @@ public class Transaction implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Transaction() {
+    public User() {
     }
 
     public Long getId() {
@@ -48,20 +58,28 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public String getConcept() {
-        return concept;
+    public String getEmail() {
+        return email;
     }
 
-    public void setConcept(String concept) {
-        this.concept = concept;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public float getAmount() {
-        return amount;
+    public String getName() {
+        return name;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Enum_RoleName getRol() {
+        return rol;
+    }
+
+    public void setRol(Enum_RoleName rol) {
+        this.rol = rol;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -80,12 +98,12 @@ public class Transaction implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public Enterprise getEnterprise() {
@@ -98,12 +116,13 @@ public class Transaction implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.concept);
-        hash = 11 * hash + Float.floatToIntBits(this.amount);
-        hash = 11 * hash + Objects.hashCode(this.createdAt);
-        hash = 11 * hash + Objects.hashCode(this.updatedAt);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.email);
+        hash = 53 * hash + Objects.hashCode(this.name);
+        hash = 53 * hash + Objects.hashCode(this.rol);
+        hash = 53 * hash + Objects.hashCode(this.createdAt);
+        hash = 53 * hash + Objects.hashCode(this.updatedAt);
         return hash;
     }
 
@@ -118,14 +137,17 @@ public class Transaction implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Transaction other = (Transaction) obj;
-        if (Float.floatToIntBits(this.amount) != Float.floatToIntBits(other.amount)) {
+        final User other = (User) obj;
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.concept, other.concept)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.rol, other.rol)) {
             return false;
         }
         if (!Objects.equals(this.createdAt, other.createdAt)) {
@@ -133,5 +155,5 @@ public class Transaction implements Serializable {
         }
         return Objects.equals(this.updatedAt, other.updatedAt);
     }
-    
+
 }

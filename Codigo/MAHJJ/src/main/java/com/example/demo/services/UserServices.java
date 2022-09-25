@@ -1,27 +1,27 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Enterprise;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.repository.EnterpriseRepository;
+import com.example.demo.repository.UserRepository;
 
 @Service
-public class EnterpriseServices {
+public class UserServices {
 
     @Autowired
-    EnterpriseRepository repository;
+    UserRepository repository;
         
     /**
-    *  El sistema permite consultar todos los empresas
+    *  El sistema permite consultar todos los usuarios
     *
     * 
-    * @return List<Usuario>
+    * @return List<User>
     */
-    public List<Enterprise> getAllEnterprises(){
-        List<Enterprise> dataList = null;
+    public List<User> getAllUsers(){
+        List<User> dataList = null;
         try {
             dataList = new ArrayList<>();
             dataList.addAll(repository.findAll());
@@ -32,13 +32,13 @@ public class EnterpriseServices {
     }
     
     /**
-    * El sistema permite consultar un solo empresa
+    * El sistema permite consultar un solo usuario
     *
     * @param id 
     * @return Usuario
     */
-    public Enterprise getEnterprise(Long id){
-        Enterprise data = null;
+    public User getUser(Long id){
+        User data = null;
         try {
             data = repository.getReferenceById(id);
         } catch (Exception e) {
@@ -48,42 +48,42 @@ public class EnterpriseServices {
     }
 
     /**
-    * El sistema permite crear un empresa
+    * El sistema permite crear un usuario
     *
-    * @param empresa 
+    * @param usuario 
     * @return Usuario
     */
-    public Enterprise createEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public User createUser(User usuario){
+        User data = null;
         try {
-            data = repository.save(empresa);
+            data = repository.save(usuario);
         } catch (Exception e) {
         }
         return data;
     }
     
     /**
-    * El sistema permite editar un empresa
+    * El sistema permite editar un usuario
     *
-    * @param empresa 
+    * @param usuario 
     * @return Usuario
     */
-    public Enterprise editEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public User editUser(User usuario){
+        User data = null;
         try {
-            data = repository.saveAndFlush(empresa);
+            data = repository.saveAndFlush(usuario);
         } catch (Exception e) {
         }
         return data;
     }
 
     /**
-    * El sistema permite eliminar un empresa
+    * El sistema permite eliminar un usuario
     *
     * @param id 
     * @return Usuario
     */
-    public boolean deleteEnterprise(Long id){
+    public boolean deleteUser(Long id){
         Boolean delete = false;
         try {
             repository.deleteById(id);

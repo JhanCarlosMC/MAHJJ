@@ -9,26 +9,22 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "transactions")
-public class Transaction implements Serializable {
+@Table(name = "profiles")
+public class Profile implements Serializable {
     
     @Id
-    @SequenceGenerator(name="transactions_pkey",sequenceName="transactions_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="transactions_pkey")
+    @SequenceGenerator(name="proflies_pkey",sequenceName="profiles_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="profiles_pkey")
     @Column(updatable = false, nullable = false, columnDefinition = "serial")
     private Long id;
 
-    private String concept;
-
-    private float amount;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", columnDefinition = "integer")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "enterprise_id", columnDefinition = "integer")
-    private Enterprise enterprise;
+    private String image;
+    
+    private String phone;
+    
+    //@OneToOne (fetch = FetchType.EAGER)
+    //@JoinColumn(name = "user_id")
+    //private User user;
 
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT NOW()")
@@ -37,7 +33,7 @@ public class Transaction implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Transaction() {
+    public Profile() {
     }
 
     public Long getId() {
@@ -48,20 +44,20 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public String getConcept() {
-        return concept;
+    public String getImage() {
+        return image;
     }
 
-    public void setConcept(String concept) {
-        this.concept = concept;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public float getAmount() {
-        return amount;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -80,30 +76,14 @@ public class Transaction implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Enterprise getEnterprise() {
-        return enterprise;
-    }
-
-    public void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.concept);
-        hash = 11 * hash + Float.floatToIntBits(this.amount);
-        hash = 11 * hash + Objects.hashCode(this.createdAt);
-        hash = 11 * hash + Objects.hashCode(this.updatedAt);
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.image);
+        hash = 67 * hash + Objects.hashCode(this.phone);
+        hash = 67 * hash + Objects.hashCode(this.createdAt);
+        hash = 67 * hash + Objects.hashCode(this.updatedAt);
         return hash;
     }
 
@@ -118,11 +98,11 @@ public class Transaction implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Transaction other = (Transaction) obj;
-        if (Float.floatToIntBits(this.amount) != Float.floatToIntBits(other.amount)) {
+        final Profile other = (Profile) obj;
+        if (!Objects.equals(this.image, other.image)) {
             return false;
         }
-        if (!Objects.equals(this.concept, other.concept)) {
+        if (!Objects.equals(this.phone, other.phone)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {

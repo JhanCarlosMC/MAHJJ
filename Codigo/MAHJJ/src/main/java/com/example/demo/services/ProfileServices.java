@@ -1,27 +1,27 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Enterprise;
+import com.example.demo.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.repository.EnterpriseRepository;
+import com.example.demo.repository.ProfileRepository;
 
 @Service
-public class EnterpriseServices {
+public class ProfileServices {
 
     @Autowired
-    EnterpriseRepository repository;
+    ProfileRepository repository;
         
     /**
-    *  El sistema permite consultar todos los empresas
+    *  El sistema permite consultar todos los perfils
     *
     * 
     * @return List<Usuario>
     */
-    public List<Enterprise> getAllEnterprises(){
-        List<Enterprise> dataList = null;
+    public List<Profile> getAllProfiles(){
+        List<Profile> dataList = null;
         try {
             dataList = new ArrayList<>();
             dataList.addAll(repository.findAll());
@@ -32,13 +32,13 @@ public class EnterpriseServices {
     }
     
     /**
-    * El sistema permite consultar un solo empresa
+    * El sistema permite consultar un solo perfil
     *
     * @param id 
     * @return Usuario
     */
-    public Enterprise getEnterprise(Long id){
-        Enterprise data = null;
+    public Profile getProfile(Long id){
+        Profile data = null;
         try {
             data = repository.getReferenceById(id);
         } catch (Exception e) {
@@ -48,42 +48,42 @@ public class EnterpriseServices {
     }
 
     /**
-    * El sistema permite crear un empresa
+    * El sistema permite crear un perfil
     *
-    * @param empresa 
+    * @param perfil 
     * @return Usuario
     */
-    public Enterprise createEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public Profile createProfile(Profile perfil){
+        Profile data = null;
         try {
-            data = repository.save(empresa);
+            data = repository.save(perfil);
         } catch (Exception e) {
         }
         return data;
     }
     
     /**
-    * El sistema permite editar un empresa
+    * El sistema permite editar un perfil
     *
-    * @param empresa 
+    * @param perfil 
     * @return Usuario
     */
-    public Enterprise editEnterprise(Enterprise empresa){
-        Enterprise data = null;
+    public Profile editProfile(Profile perfil){
+        Profile data = null;
         try {
-            data = repository.saveAndFlush(empresa);
+            data = repository.saveAndFlush(perfil);
         } catch (Exception e) {
         }
         return data;
     }
 
     /**
-    * El sistema permite eliminar un empresa
+    * El sistema permite eliminar un perfil
     *
     * @param id 
     * @return Usuario
     */
-    public boolean deleteEnterprise(Long id){
+    public boolean deleteProfile(Long id){
         Boolean delete = false;
         try {
             repository.deleteById(id);
