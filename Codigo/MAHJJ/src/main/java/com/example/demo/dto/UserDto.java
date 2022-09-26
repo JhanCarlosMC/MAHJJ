@@ -14,7 +14,7 @@ public class UserDto implements Serializable {
     
     private Long id;
     private String email;
-    private String nombre;
+    private String name;
     private Enum_RoleName rol;
     private ProfileDto profile;
     private EnterpriseDto enterprise;
